@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-var Resource = require('deployd/lib/resource'),
+var Resource = require('bos-deployd/lib/resource'),
 	util = require('util'),
 	path = require('path'),
 	debug = require('debug')('bos-deployd-fileupload'),
@@ -145,16 +145,13 @@ Fileupload.prototype.handle = function (ctx, next) {
 
 		form.uploadDir = uploadDir;
 		var config = this.config;
-
 		var renameAndStore = function (file) {
-			fs.rename(file.path, path.join(uploadDir, file.name), function (err) {
+			file.name = uniqueFilename ? file.originalFilename : md5(Date.now()) + '.' + file.originalFilename.split('.').pop();
+			fs.rename(file.filepath, path.join(uploadDir, file.name), function (err) {
 				if (err) return processDone(err);
-				debug('File renamed after event.upload.run: %j', err || path.join(uploadDir, file.name));
+				debug('File renamed after event.upload.run: %j', err || path.join(uploadDir, file.newFilename));
 				var storedObject = _.clone(storedProperties);
 				storedObject.filename = file.name;
-				if (uniqueFilename) {
-					storedObject.originalFilename = file.originalFilename;
-				}
 				storedObject.filesize = file.size;
 				storedObject.creationDate = new Date().getTime();
 
@@ -179,11 +176,7 @@ Fileupload.prototype.handle = function (ctx, next) {
 
 		form.parse(req)
 			.on('file', function (name, file) {
-				debug('File %j received', file.name);
-				if (uniqueFilename) {
-					file.originalFilename = file.name;
-					file.name = md5(Date.now()) + '.' + file.name.split('.').pop();
-				}
+				debug('File %j received', file.originalFilename);
 				if (self.events.upload) {
 					self.events.upload.run(
 						ctx,
@@ -191,7 +184,6 @@ Fileupload.prototype.handle = function (ctx, next) {
 							url: ctx.url,
 							filesize: file.size,
 							filename: file.name,
-							originalFilename: file.originalFilename,
 							uniqueFilename: uniqueFilename,
 							subdir: subdir
 						},
