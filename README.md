@@ -1,8 +1,3 @@
-## BierOnStack File uploader Module for Deployd (fork of dpd-upload)
+# 26-abr-2023
 
-## Change Log
-
-v0.0.1 - Changing formidable reference to fix os.tmpDir is not a function error
-v0.0.2 - Fixing problem on upload file path
-
-## Installation
+Bier - Subi o pacote no npmjs com o repositório git correto e ajustando o versionamento para manter organizado as referências e projetos.
