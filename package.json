@@ -1,7 +1,7 @@
 {
   "name": "bos-deployd-fileupload",
-  "description": "bos deployd fileupload é um fork do pacote dpd-upload para ser utilizado com o pacote base bos-deployd, compatível com mongodb 5",
-  "version": "1.2.1",
+  "description": "Bos Deployd File Upload Module - Módulo de Recursos de Upload de Arquivos para Framework BOS Deployd (deprecated)",
+  "version": "0.0.1",
   "author": "Carlos Eduardo Bier",
   "dependencies": {
     "debug": "2.2.0",
@@ -15,12 +15,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bier-web/bos-deployd-fileupload.git"
+    "url": "https://github.com/eduardo-bier-bos/bos-deployd-fileupload.git"
   },
-  "engines": {
-    "node": ">= 0.11"
-  },
-  "license": "MIT",
-  "homepage": "https://github.com/bier-web/bos-deployd-fileupload",
+  "homepage": "https://github.com/eduardo-bier-bos/bos-deployd-fileupload",
   "main": "index.js"
 }
